@@ -1,0 +1,41 @@
+/* Output the table 'Orders', limited to 5 entries. */
+
+select *
+from Orders
+limit 5;
+****************
+/* The final output table should have the price grouped(Aliased as Pay_Category) as above and the count of the dishes falling in the respective category. */
+
+select 
+case 
+    when price > 18 then 'High'
+    when price between 10 and 18 then 'Medium'
+    when price < 10 then 'Low'
+    else 'NA'
+    end as Pay_Category,
+count(*) as dish_count
+from orders
+group by 1;
+****************
+/*Re-arrange the query to find the number of orders that fall under the category 'Veg' across the Cuisine.*/
+
+SELECT cuisine, 
+COUNT(CASE WHEN category = 'Veg' THEN 1 ELSE NULL END)
+FROM Orders
+GROUP BY cuisine;
+****************
+/* Write a query to find the sum of prices of the dishes fall under the category 'Non veg' across the Cuisine.
+The output table should have the types of Cuisines and the sum of prices of the 'Non veg' dishes(mentioned under the column 'category') in each of them. Alias the sum function as 'Non_Veg_Price' */
+
+SELECT cuisine,
+SUM(CASE WHEN category = 'Non veg' THEN price ELSE 0 END) as Non_Veg_Price 
+FROM Orders
+GROUP BY 1;
+****************
+/* Write a query to find out what percentage of the total revenue (sum of all orders) is contributed by American Cuisine. Round the final value to 2 decimal places */
+
+SELECT ROUND((100*(SUM(CASE 
+    WHEN cuisine = 'American' THEN price 
+    ELSE 0 END))/SUM(price)),2) AS American_Revenue
+FROM Orders;
+****************
