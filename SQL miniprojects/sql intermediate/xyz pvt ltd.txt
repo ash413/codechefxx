@@ -1,0 +1,28 @@
+/* Write a query to output the details of employees in the table 'employee'. Limit to 5 rows. */
+
+select * 
+from employee
+limit 5 ;
+*******************
+/* Write a query to output a single table with the names of employees in both  the table 'employee' and 'pt_employee'.
+Employee names are added on the field emp_name in both the tables.
+Note: Do not remove the duplicate names while combining both the tables. */
+
+select emp_name 
+from employee
+union all
+select emp_name 
+from pt_employee;
+*******************
+/* Write a query to output a table with all the details of the part time employees from the table 'employee'. */
+
+select emp_id, emp_name from employee
+intersect
+select emp_id, emp_name from pt_employee;
+*******************
+/*Re arrange code to fetch the details of the full time employees from the table 'employee'.*/
+
+SELECT * FROM employee
+EXCEPT
+SELECT * FROM pt_employee
+*******************
