@@ -1,0 +1,15 @@
+/* Write a query to output the table 'employee' limited to 5 rows. */
+
+select *
+from employee 
+limit 5;
+*********************
+/* Write a query to output the name of employees who has age less than the average age of the employees of the department 'Sales'. */
+
+select emp_name
+from employee
+where emp_age <  
+    (select avg(emp_age) 
+    from employee 
+    where emp_dept = 'Sales');
+*********************
