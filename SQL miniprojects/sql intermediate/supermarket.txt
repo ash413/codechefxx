@@ -1,0 +1,52 @@
+/* Write a query to output the table 'Customer'. Limit your results to 3 rows. */
+
+select * from Customer
+limit 3;
+***********************
+
+/* Write a query to join the table 'Customer' and 'Purchase' using Customer_id as the common column in the table.
+Output the joined table. */
+
+select * 
+from Customer
+join Purchase
+on Customer.Customer_id = Purchase.Customer_id;
+***********************
+
+/* Write a query to join the table 'Customer' and 'Purchase' using Customer_id as the common column in the table.
+Output the joined table including the list of customers who hasn't made any purchases yet. */
+
+select * 
+from Customer
+left join Purchase
+on Customer.Customer_id = Purchase.Customer_id;
+***********************
+
+/* Write a query to output a table with the list of possible item all the customers could be buy. The output table should contain the columns 'Customer_Name' and 'Item_Name'. */
+
+select Customer_Name, Item_Name
+from customer
+cross join Item;
+***********************
+
+/* Write a query to output a table with the list of all items in the supermarket. There already exit a table 'Item' there is another table 'Item_adn' The task is to combine these two tables. */
+
+select * 
+from Item
+union 
+select * 
+from Item_adn;
+***********************
+
+/* Write a query to output a join table of 'Customer' and 'Purchase' containing only the details of 3 customers who has the highest purchased amount. */
+
+with top_purchase as(
+select purchase_id, customer_id, Purchase_Amt
+from Purchase
+order by Purchase_Amt DESC
+limit 3
+)
+select * 
+from Customer
+join top_purchase
+on Customer.customer_id = top_purchase.customer_id;
